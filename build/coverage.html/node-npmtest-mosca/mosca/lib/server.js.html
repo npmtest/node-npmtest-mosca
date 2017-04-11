@@ -1,0 +1,2129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-mosca/mosca/lib/server.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-mosca">npmtest-mosca (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-mosca/mosca/lib/server.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">18.23% <small>(37 / 203)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 92)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 46)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">18.23% <small>(37 / 203)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">node-npmtest-mosca/mosca/lib/</a> &#187; server.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+Copyright (c) 2013-2016 Matteo Collina, http://matteocollina.com
+&nbsp;
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+&nbsp;
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+&nbsp;
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+*/
+"use strict";
+&nbsp;
+var Connection = require("mqtt-connection");
+var ws = require("websocket-stream");
+var steed = require("steed")();
+var ascoltatori = require("ascoltatori");
+var EventEmitter = require("events").EventEmitter;
+var pino = require("pino");
+var extend = require("extend");
+var Client = require("./client");
+var Stats = require("./stats");
+var shortid = require("shortid");
+var persistence = require('./persistence');
+var options = require('./options');
+var interfaces = require('./interfaces');
+&nbsp;
+var defaults = options.defaultsLegacy();
+var nop = <span class="fstat-no" title="function not covered" >function() {</span>};
+&nbsp;
+/**
+ * The Mosca Server is a very simple MQTT server that
+ * provides a simple event-based API to craft your own MQTT logic
+ * It supports QoS 0 &amp; 1, without external storage.
+ * It is backed by Ascoltatori, and it descends from
+ * EventEmitter.
+ *
+ * Options:
+ *  - `host`, the IP address of the server (see http://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback).
+ *  - `interfaces`, list of network interfaces with necessary options.
+ *  - `backend`, all the options for creating the Ascoltatore
+ *    that will power this server.
+ *  - `ascoltatore`, the ascoltatore to use (instead of `backend`).
+ *  - `maxInflightMessages`, the maximum number of inflight messages per client.
+ *  - `logger`, the options for Pino.
+ *  - `persistence`, the options for the persistence.
+ *     A sub-key `factory` is used to specify what persistence
+ *     to use.
+ *  - `credentials`, credentials for secure connection, includes two properties:
+ *     - `keyPath`, the path to the key
+ *     - `certPath`, the path to the certificate
+ *     - `*`, additional properties are passed as options to `tls.createServer` (see https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener)
+ *  - `stats`, publish the stats every 10s (default false).
+ *  - `publishNewClient`, publish message to topic "$SYS/{broker-id}/new/clients" when new client connects.
+ *  - `publishClientDisconnect`, publish message to topic "$SYS/{broker-id}/disconnect/clients" when a client disconnects.
+ *  - `publishSubscriptions`, publish message to topic "$SYS/{broker-id}/new/(un)subscribes" when a client subscribes/unsubscribes.
+ *
+ * Interface may contain following properties:
+ *  - `type`, name of a build-in type or a custom type factory
+ *  - `port`, target port, overrides default port infered from `type`
+ *  - `host`, target host, overrides
+ *
+ * Built-in interface types:
+ *  - `mqtt`, normal mqtt, port: 1883
+ *  - `mqtts`, mqtt over ssl, port: 8883, requires `credentials`
+ *  - `http`, mqtt over websocket, port: 3000
+ *  - `https`, mqtt over secure websocket, port: 3001, requires `credentials`
+ *
+ * Events:
+ *  - `clientConnected`, when a client is connected;
+ *    the client is passed as a parameter.
+ *  - `clientDisconnecting`, when a client is being disconnected;
+ *    the client is passed as a parameter.
+ *  - `clientDisconnected`, when a client is disconnected;
+ *    the client is passed as a parameter.
+ *  - `published`, when a new message is published;
+ *    the packet and the client are passed as parameters.
+ *  - `subscribed`, when a client is subscribed to a topic;
+ *    the topic and the client are passed as parameters.
+ *  - `unsubscribed`, when a client is unsubscribed to a topic;
+ *    the topic and the client are passed as parameters.
+ *
+ * @param {Object} opts The option object
+ * @param {Function} callback The ready callback
+ * @api public
+ */
+<span class="fstat-no" title="function not covered" >function Server(opts, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  var modernOpts = options.modernize(opts);</span>
+<span class="cstat-no" title="statement not covered" >  var validationResult = options.validate(modernOpts);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (validationResult.errors.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >    var errMessage = validationResult.errors[0].message;</span>
+<span class="cstat-no" title="statement not covered" >    if (callback) {</span>
+<span class="cstat-no" title="statement not covered" >      callback(new Error(errMessage));</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      throw new Error(errMessage);</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  modernOpts = options.populate(modernOpts);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof Server)) {</span>
+<span class="cstat-no" title="statement not covered" >    return new Server(opts, callback);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  EventEmitter.call(this);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (true) { // REFACTOR: kludge for tests that rely on options structure</span>
+<span class="cstat-no" title="statement not covered" >    this.opts = extend(true, {}, defaults, opts);</span>
+<span class="cstat-no" title="statement not covered" >    this.modernOpts = modernOpts;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (this.opts.secure) {</span>
+<span class="cstat-no" title="statement not covered" >      this.opts.secure.port = this.opts.secure.port || 8883;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (this.opts.http) {</span>
+<span class="cstat-no" title="statement not covered" >      this.opts.http.port = this.opts.http.port || 3000;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (this.opts.https) {</span>
+<span class="cstat-no" title="statement not covered" >      this.opts.https.port = this.opts.https.port || 3001;</span>
+    }
+  } else { // REFACTOR: enable this once test are updated
+<span class="cstat-no" title="statement not covered" >    this.opts = modernOpts;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  callback = callback || <span class="fstat-no" title="function not covered" >function() {</span>};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this._dedupId = 0;</span>
+<span class="cstat-no" title="statement not covered" >  this.clients = {};</span>
+<span class="cstat-no" title="statement not covered" >  this.closed = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (this.modernOpts.logger.childOf) {</span>
+<span class="cstat-no" title="statement not covered" >    this.logger = this.modernOpts.logger.childOf;</span>
+<span class="cstat-no" title="statement not covered" >    delete this.modernOpts.logger.childOf;</span>
+<span class="cstat-no" title="statement not covered" >    delete this.modernOpts.logger.name;</span>
+<span class="cstat-no" title="statement not covered" >    this.logger = this.logger.child(this.modernOpts.logger);</span>
+  } else {
+<span class="cstat-no" title="statement not covered" >    this.logger = pino(this.modernOpts.logger);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if(this.modernOpts.stats) {</span>
+<span class="cstat-no" title="statement not covered" >    new Stats().wire(this);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var that = this;</span>
+&nbsp;
+  // each Server has a dummy id for logging purposes
+<span class="cstat-no" title="statement not covered" >  this.id = this.modernOpts.id || shortid.generate();</span>
+&nbsp;
+  // initialize servers list
+<span class="cstat-no" title="statement not covered" >  this.servers = [];</span>
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  steed.series([</span>
+&nbsp;
+    // steed.series: wait for ascoltatore
+<span class="fstat-no" title="function not covered" >    function (done) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if(that.modernOpts.ascoltatore) {</span>
+<span class="cstat-no" title="statement not covered" >        that.ascoltatore = that.modernOpts.ascoltatore;</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
+      }
+      else {
+<span class="cstat-no" title="statement not covered" >        that.ascoltatore = ascoltatori.build(that.modernOpts.backend, done);</span>
+<span class="cstat-no" title="statement not covered" >        that.ascoltatore.on('error', that.emit.bind(that, 'error'));</span>
+      }
+    },
+&nbsp;
+    // steed.series: wait for persistence
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function (done) {</span>
+      // REFACTOR: partially move to options.validate and options.populate?
+<span class="cstat-no" title="statement not covered" >      var persistenceFactory = that.modernOpts.persistence &amp;&amp; that.modernOpts.persistence.factory;</span>
+<span class="cstat-no" title="statement not covered" >      if (persistenceFactory) {</span>
+<span class="cstat-no" title="statement not covered" >        if (typeof persistenceFactory === 'string') {</span>
+<span class="cstat-no" title="statement not covered" >          var factoryName = persistenceFactory;</span>
+<span class="cstat-no" title="statement not covered" >          persistenceFactory = persistence.getFactory(factoryName);</span>
+<span class="cstat-no" title="statement not covered" >          if (!persistenceFactory) {</span>
+<span class="cstat-no" title="statement not covered" >            return callback(new Error('No persistence factory found for ' + factoryName ));</span>
+          }
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        that.persistence = persistenceFactory(that.modernOpts.persistence, done);</span>
+<span class="cstat-no" title="statement not covered" >        that.persistence.wire(that);</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        that.persistence = null;</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
+      }
+    },
+&nbsp;
+    // steed.series: iterate over defined interfaces, build servers and listen
+<span class="fstat-no" title="function not covered" >    function (done) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      steed.eachSeries(that.modernOpts.interfaces, <span class="fstat-no" title="function not covered" >function (iface, dn) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var fallback = that.modernOpts;</span>
+<span class="cstat-no" title="statement not covered" >        var host = iface.host || that.modernOpts.host;</span>
+<span class="cstat-no" title="statement not covered" >        var port = iface.port || that.modernOpts.port;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var server = interfaces.serverFactory(iface, fallback, that);</span>
+<span class="cstat-no" title="statement not covered" >        that.servers.push(server);</span>
+<span class="cstat-no" title="statement not covered" >        server.maxConnections = iface.maxConnections || 10000000;</span>
+<span class="cstat-no" title="statement not covered" >        server.listen(port, host, dn);</span>
+      }, done);
+    },
+&nbsp;
+    // steed.series: log startup information
+<span class="fstat-no" title="function not covered" >    function (done) {</span>
+<span class="cstat-no" title="statement not covered" >      var logInfo = {};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      that.modernOpts.interfaces.forEach(<span class="fstat-no" title="function not covered" >function (iface) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var name = iface.type;</span>
+<span class="cstat-no" title="statement not covered" >        if (typeof name !== "string") {</span>
+<span class="cstat-no" title="statement not covered" >          name = iface.type.name;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        logInfo[name] = iface.port;</span>
+      });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      that.logger.info(logInfo, "server started");</span>
+<span class="cstat-no" title="statement not covered" >      that.emit("ready");</span>
+<span class="cstat-no" title="statement not covered" >      done(null);</span>
+    }
+  ], <span class="fstat-no" title="function not covered" >function(err, results){</span>
+<span class="cstat-no" title="statement not covered" >    if(err) {</span>
+<span class="cstat-no" title="statement not covered" >      callback(err);</span>
+    }
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  that.on("clientConnected", <span class="fstat-no" title="function not covered" >function(client) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if(that.modernOpts.publishNewClient) {</span>
+<span class="cstat-no" title="statement not covered" >      that.publish({</span>
+        topic: "$SYS/" + that.id + "/new/clients",
+        payload: client.id
+      });
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.clients[client.id] = client;</span>
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  that.once("ready", <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >    callback(null, that);</span>
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  that.on('ready', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >    that.ascoltatore.subscribe(</span>
+      "$SYS/+/new/clients",
+<span class="fstat-no" title="function not covered" >      function(topic, payload) {</span>
+<span class="cstat-no" title="statement not covered" >        var serverId, clientId;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        serverId = topic.split('/')[1];</span>
+<span class="cstat-no" title="statement not covered" >        clientId = payload;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if(that.clients[clientId] &amp;&amp; serverId !== that.id) {</span>
+<span class="cstat-no" title="statement not covered" >          that.clients[clientId].close(null, "new connection request");</span>
+        }
+      }
+    );
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if(that.modernOpts.publishSubscriptions) {</span>
+<span class="cstat-no" title="statement not covered" >    that.on("subscribed", <span class="fstat-no" title="function not covered" >function(topic, client) {</span></span>
+<span class="cstat-no" title="statement not covered" >      that.publish({</span>
+        topic: "$SYS/" + that.id + "/new/subscribes",
+        payload: JSON.stringify({
+          clientId: client.id,
+          topic: topic
+        })
+      });
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    that.on("unsubscribed", <span class="fstat-no" title="function not covered" >function(topic, client) {</span></span>
+<span class="cstat-no" title="statement not covered" >      that.publish({</span>
+        topic: "$SYS/" + that.id + "/new/unsubscribes",
+        payload: JSON.stringify({
+          clientId: client.id,
+          topic: topic
+        })
+      });
+    });
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  that.on("clientDisconnected", <span class="fstat-no" title="function not covered" >function(client) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if(that.modernOpts.publishClientDisconnect) {</span>
+<span class="cstat-no" title="statement not covered" >      that.publish({</span>
+        topic: "$SYS/" + that.id + "/disconnect/clients",
+        payload: client.id
+      });
+    }
+<span class="cstat-no" title="statement not covered" >    delete this.clients[client.id];</span>
+  });
+}
+&nbsp;
+module.exports = Server;
+&nbsp;
+Server.prototype = Object.create(EventEmitter.prototype);
+&nbsp;
+Server.prototype.toString = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return 'mosca.Server';</span>
+};
+&nbsp;
+/**
+ * Subscribes to a topic on the MQTT broker.
+ *
+ * @api public
+ * @param {String} topic The MQTT topic
+ * @param {Function} callback The callback with (topic, payload) arguments
+ * @param {Function} done The subscription result
+ */
+Server.prototype.subscribe = <span class="fstat-no" title="function not covered" >function subscribe(topic, callback, done) {</span>
+<span class="cstat-no" title="statement not covered" >  this.ascoltatore.subscribe(topic, callback, done);</span>
+};
+&nbsp;
+/**
+ * Publishes a packet on the MQTT broker.
+ *
+ * @api public
+ * @param {Object} packet The MQTT packet, it should include the
+ *                        topic, payload, qos, and retain keys.
+ * @param {Object} client The client object (internal)
+ * @param {Function} callback The callback
+ */
+Server.prototype.publish = <span class="fstat-no" title="function not covered" >function publish(packet, client, callback) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var that = this;</span>
+<span class="cstat-no" title="statement not covered" >  var logger = this.logger;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (typeof client === 'function') {</span>
+<span class="cstat-no" title="statement not covered" >    callback = client;</span>
+<span class="cstat-no" title="statement not covered" >    client = null;</span>
+  } else <span class="cstat-no" title="statement not covered" >if (client) {</span>
+<span class="cstat-no" title="statement not covered" >    logger = client.logger;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!callback) {</span>
+<span class="cstat-no" title="statement not covered" >    callback = nop;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var newPacket = {</span>
+    topic: packet.topic,
+    payload: packet.payload,
+    messageId: this.generateUniqueId(),
+    qos: packet.qos,
+    retain: packet.retain
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var opts = {</span>
+    qos: packet.qos,
+    messageId: newPacket.messageId
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (client) {</span>
+<span class="cstat-no" title="statement not covered" >    opts.clientId = client.id;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  that.storePacket(newPacket, <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (that.closed) {</span>
+<span class="cstat-no" title="statement not covered" >      logger.debug({ packet: newPacket }, "not delivering because we are closed");</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    that.ascoltatore.publish(</span>
+      newPacket.topic,
+      newPacket.payload,
+      opts,
+<span class="fstat-no" title="function not covered" >      function() {</span>
+<span class="cstat-no" title="statement not covered" >        that.published(newPacket, client, <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >          if( newPacket.topic.indexOf( '$SYS' ) &gt;= 0 ) {</span>
+<span class="cstat-no" title="statement not covered" >            logger.trace({ packet: newPacket }, "published packet");</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            logger.debug({ packet: newPacket }, "published packet");</span>
+          }
+<span class="cstat-no" title="statement not covered" >          that.emit("published", newPacket, client);</span>
+<span class="cstat-no" title="statement not covered" >          callback(undefined, newPacket);</span>
+        });
+      }
+    );
+  });
+};
+&nbsp;
+/**
+ * The function that will be used to authenticate users.
+ * This default implementation authenticate everybody.
+ * Override at will.
+ *
+ * @api public
+ * @param {Object} client The MQTTConnection that is a client
+ * @param {String} username The username
+ * @param {String} password The password
+ * @param {Function} callback The callback to return the verdict
+ */
+Server.prototype.authenticate = <span class="fstat-no" title="function not covered" >function(client, username, password, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  callback(null, true);</span>
+};
+&nbsp;
+/**
+ * The function that is called after receiving a publish message but before
+ * answering with puback for QoS 1 packet.
+ * This default implementation does nothing
+ * Override at will
+ *
+ * @api public
+ * @param {Object} packet The MQTT packet
+ * @param {Object} client The MQTTConnection that is a client
+ * @param {Function} callback The callback to send the puback
+ */
+Server.prototype.published = <span class="fstat-no" title="function not covered" >function(packet, client, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  callback(null);</span>
+};
+&nbsp;
+/**
+ * The function that will be used to authorize clients to publish to topics.
+ * This default implementation authorize everybody.
+ * Override at will
+ *
+ * @api public
+ * @param {Object} client The MQTTConnection that is a client
+ * @param {String} topic The topic
+ * @param {String} paylod The paylod
+ * @param {Function} callback The callback to return the verdict
+ */
+Server.prototype.authorizePublish = <span class="fstat-no" title="function not covered" >function(client, topic, payload, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  callback(null, true);</span>
+};
+&nbsp;
+/**
+ * The function that will be used to authorize clients to subscribe to topics.
+ * This default implementation authorize everybody.
+ * Override at will
+ *
+ * @api public
+ * @param {Object} client The MQTTConnection that is a client
+ * @param {String} topic The topic
+ * @param {Function} callback The callback to return the verdict
+ */
+Server.prototype.authorizeSubscribe = <span class="fstat-no" title="function not covered" >function(client, topic, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  callback(null, true);</span>
+};
+&nbsp;
+/**
+ * The function that will be used to authorize forwarding packet to client.
+ * This default implementation authorize any packet for any client.
+ * Override at will
+ *
+ * @api public
+ * @param {Object} client The MQTTConnection that is a client.
+ * @param {Object} packet The packet to be published.
+ * @param {Function} callback The callback to return the authorization flag.
+ */
+Server.prototype.authorizeForward = <span class="fstat-no" title="function not covered" >function(client, packet, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  callback(null, true);</span>
+};
+&nbsp;
+&nbsp;
+/**
+ * Store a packet for future usage, if needed.
+ * Only packets with the retained flag are setted, or for which
+ * there is an "offline" subscription".
+ * This is a NOP, override at will.
+ *
+ * @api public
+ * @param {Object} packet The MQTT packet to store
+ * @param {Function} callback
+ */
+Server.prototype.storePacket = <span class="fstat-no" title="function not covered" >function(packet, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  if (callback) {</span>
+<span class="cstat-no" title="statement not covered" >    callback();</span>
+  }
+};
+&nbsp;
+/**
+ * Delete a packet for the offline storage
+ * This is a NOP, override at will.
+ *
+ * @api public
+ * @param {Object} client The client
+ * @param {Number} messageId The messsageId of the packet
+ * @param {Function} callback
+ */
+Server.prototype.deleteOfflinePacket = <span class="fstat-no" title="function not covered" >function(client, messageId, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  if (callback) {</span>
+<span class="cstat-no" title="statement not covered" >    callback();</span>
+  }
+};
+&nbsp;
+/**
+ * Forward all the retained messages of the specified pattern to
+ * the client.
+ * This is a NOP, override at will.
+ *
+ * @api public
+ * @param {String} pattern The topic pattern.
+ * @param {MoscaClient} client The client to forward the packet's to.
+ * @param {Function} callback
+ */
+Server.prototype.forwardRetained = <span class="fstat-no" title="function not covered" >function(pattern, client, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  if (callback) {</span>
+<span class="cstat-no" title="statement not covered" >    callback();</span>
+  }
+};
+&nbsp;
+/**
+ * Restores the previous subscriptions in the client
+ * This is a NOP, override at will.
+ *
+ * @param {MoscaClient} client
+ * @param {Function} callback
+ */
+Server.prototype.restoreClientSubscriptions = <span class="fstat-no" title="function not covered" >function(client, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  if (callback) {</span>
+<span class="cstat-no" title="statement not covered" >    callback();</span>
+  }
+};
+&nbsp;
+/**
+ * Forward all the offline messages the client has received when it was offline.
+ * This is a NOP, override at will.
+ *
+ * @param {MoscaClient} client
+ * @param {Function} callback
+ */
+Server.prototype.forwardOfflinePackets = <span class="fstat-no" title="function not covered" >function(client, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  if (callback) {</span>
+<span class="cstat-no" title="statement not covered" >    callback();</span>
+  }
+};
+&nbsp;
+/**
+ * Updates an offline packet.
+ * This is a NOP, override at will.
+ *
+ * @param {MoscaClient} client
+ * @param {Integer} originMessageId The original message id
+ * @param {Object} packet The new packet
+ * @param {Function} callback
+ */
+Server.prototype.updateOfflinePacket = <span class="fstat-no" title="function not covered" >function(client, originMessageId, packet, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  if (callback) {</span>
+<span class="cstat-no" title="statement not covered" >    callback(null, packet);</span>
+  }
+};
+&nbsp;
+/**
+ * Persist a client.
+ * This is a NOP, override at will.
+ *
+ * @param {MoscaClient} client
+ * @param {Function} callback
+ */
+Server.prototype.persistClient = <span class="fstat-no" title="function not covered" >function(client, callback) {</span>
+<span class="cstat-no" title="statement not covered" >  if (callback) {</span>
+<span class="cstat-no" title="statement not covered" >    callback();</span>
+  }
+};
+&nbsp;
+/**
+ * Closes the server.
+ *
+ * @api public
+ * @param {Function} callback The closed callback function
+ */
+Server.prototype.close = <span class="fstat-no" title="function not covered" >function(callback) {</span>
+<span class="cstat-no" title="statement not covered" >  var that = this;</span>
+<span class="cstat-no" title="statement not covered" >  var stuffToClose = [];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  callback = callback || <span class="fstat-no" title="function not covered" >function nop() {</span>};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (that.closed) {</span>
+<span class="cstat-no" title="statement not covered" >    return callback();</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  that.closed = true;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  Object.keys(that.clients).forEach(<span class="fstat-no" title="function not covered" >function(i) {</span></span>
+<span class="cstat-no" title="statement not covered" >    stuffToClose.push(that.clients[i]);</span>
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  that.servers.forEach(<span class="fstat-no" title="function not covered" >function(server) {</span></span>
+<span class="cstat-no" title="statement not covered" >    stuffToClose.push(server);</span>
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (that.persistence) {</span>
+<span class="cstat-no" title="statement not covered" >    stuffToClose.push(that.persistence);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  steed.each(stuffToClose, <span class="fstat-no" title="function not covered" >function(toClose, cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >    toClose.close(cb, "server closed");</span>
+  }, <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    that.ascoltatore.close(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >      that.logger.info("server closed");</span>
+<span class="cstat-no" title="statement not covered" >      that.emit("closed");</span>
+<span class="cstat-no" title="statement not covered" >      callback();</span>
+    });
+  });
+};
+&nbsp;
+/**
+ * Attach a Mosca server to an existing http server
+ *
+ * @api public
+ * @param {HttpServer} server
+ * @param {String} path
+ */
+Server.prototype.attachHttpServer = <span class="fstat-no" title="function not covered" >function(server, path) {</span>
+<span class="cstat-no" title="statement not covered" >  var that = this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var opt = { server: server };</span>
+<span class="cstat-no" title="statement not covered" >  if (path) {</span>
+<span class="cstat-no" title="statement not covered" >    opt.path = path;</span>
+  }
+  
+<span class="cstat-no" title="statement not covered" >  ws.createServer(opt, <span class="fstat-no" title="function not covered" >function(stream) {</span></span>
+<span class="cstat-no" title="statement not covered" >    var conn = new Connection(stream);</span>
+<span class="cstat-no" title="statement not covered" >    new Client(conn, that);</span>
+  });
+};
+&nbsp;
+Server.prototype.nextDedupId = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return this._dedupId++;</span>
+};
+&nbsp;
+Server.prototype.generateUniqueId = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return shortid.generate();</span>
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 19:33:05 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
