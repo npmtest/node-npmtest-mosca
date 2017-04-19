@@ -1,6 +1,6 @@
 # npmtest-mosca
 
-#### test coverage for  [mosca (v2.3.0)](https://github.com/mcollina/mosca#readme)  [![npm package](https://img.shields.io/npm/v/npmtest-mosca.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-mosca) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-mosca.svg)](https://travis-ci.org/npmtest/node-npmtest-mosca)
+#### basic test coverage for  [mosca (v2.3.0)](https://github.com/mcollina/mosca#readme)  [![npm package](https://img.shields.io/npm/v/npmtest-mosca.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-mosca) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-mosca.svg)](https://travis-ci.org/npmtest/node-npmtest-mosca)
 
 #### MQTT broker as a module
 
