@@ -1,7 +1,10 @@
-# test coverage for  [mosca (v2.3.0)](https://github.com/mcollina/mosca#readme)  [![npm package](https://img.shields.io/npm/v/npmtest-mosca.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-mosca) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-mosca.svg)](https://travis-ci.org/npmtest/node-npmtest-mosca)
+# npmtest-mosca
+
+#### test coverage for  [mosca (v2.3.0)](https://github.com/mcollina/mosca#readme)  [![npm package](https://img.shields.io/npm/v/npmtest-mosca.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-mosca) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-mosca.svg)](https://travis-ci.org/npmtest/node-npmtest-mosca)
+
 #### MQTT broker as a module
 
-[![NPM](https://nodei.co/npm/mosca.png?downloads=true)](https://www.npmjs.com/package/mosca)
+[![NPM](https://nodei.co/npm/mosca.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/mosca)
 
 | git-branch : | [alpha](https://github.com/npmtest/node-npmtest-mosca/tree/alpha)|
 |--:|:--|
@@ -9,11 +12,17 @@
 | test-report : | [![test-report](https://npmtest.github.io/node-npmtest-mosca/build/test-report.badge.svg)](https://npmtest.github.io/node-npmtest-mosca/build/test-report.html)|
 | build-artifacts : | [![build-artifacts](https://npmtest.github.io/node-npmtest-mosca/glyphicons_144_folder_open.png)](https://github.com/npmtest/node-npmtest-mosca/tree/gh-pages/build)|
 
-[![istanbul-coverage](https://npmtest.github.io/node-npmtest-mosca/build/screenCapture.buildCustomOrg.browser.coverage.html.png)](https://npmtest.github.io/node-npmtest-mosca/build/coverage.html/index.html)
+- [https://npmtest.github.io/node-npmtest-mosca/build/coverage.html/index.html](https://npmtest.github.io/node-npmtest-mosca/build/coverage.html/index.html)
 
-[![test-report](https://npmtest.github.io/node-npmtest-mosca/build/screenCapture.buildCustomOrg.browser.%252Fhome%252Ftravis%252Fbuild%252Fnpmtest%252Fnode-npmtest-mosca%252Ftmp%252Fbuild%252Ftest-report.html.png)](https://npmtest.github.io/node-npmtest-mosca/build/test-report.html)
+[![istanbul-coverage](https://npmtest.github.io/node-npmtest-mosca/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fcoverage.lib.html.png)](https://npmtest.github.io/node-npmtest-mosca/build/coverage.html/index.html)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-mosca/build/screenCapture.buildApidoc.browser.%252Fhome%252Ftravis%252Fbuild%252Fnpmdoc%252Fnode-npmdoc-mosca%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-mosca/build/apidoc.html)
+- [https://npmtest.github.io/node-npmtest-mosca/build/test-report.html](https://npmtest.github.io/node-npmtest-mosca/build/test-report.html)
+
+[![test-report](https://npmtest.github.io/node-npmtest-mosca/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)](https://npmtest.github.io/node-npmtest-mosca/build/test-report.html)
+
+- [https://npmdoc.github.io/node-npmdoc-mosca/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-mosca/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-mosca/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-mosca/build/apidoc.html)
 
 ![npmPackageListing](https://npmtest.github.io/node-npmtest-mosca/build/screenCapture.npmPackageListing.svg)
 
@@ -27,8 +36,7 @@
 
 {
     "author": {
-        "name": "Matteo Collina",
-        "email": "hello@matteocollina.com"
+        "name": "Matteo Collina"
     },
     "bin": {
         "mosca": "./bin/mosca"
@@ -118,8 +126,7 @@
     "main": "index.js",
     "maintainers": [
         {
-            "name": "matteo.collina",
-            "email": "hello@matteocollina.com"
+            "name": "matteo.collina"
         }
     ],
     "name": "mosca",
@@ -134,7 +141,6 @@
         "jshint-test",
         "test"
     ],
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/mcollina/mosca.git"
